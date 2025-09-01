@@ -1,0 +1,45 @@
+{
+	"name": "@ariakit/react",
+	"version": "0.4.18",
+	"sideEffects": false,
+	"license": "MIT",
+	"type": "module",
+	"dependencies": {
+		"@floating-ui/dom": "^1.0.0"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0 || ^19.0.0",
+		"react-dom": "^18.0.0 || ^19.0.0"
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./button": "./dist/button.js",
+		"./checkbox": "./dist/checkbox.js",
+		"./collection": "./dist/collection.js",
+		"./combobox": "./dist/combobox.js",
+		"./command": "./dist/command.js",
+		"./composite": "./dist/composite.js",
+		"./dialog": "./dist/dialog.js",
+		"./disclosure": "./dist/disclosure.js",
+		"./focus-trap": "./dist/focus-trap.js",
+		"./focusable": "./dist/focusable.js",
+		"./form": "./dist/form.js",
+		"./group": "./dist/group.js",
+		"./heading": "./dist/heading.js",
+		"./hovercard": "./dist/hovercard.js",
+		"./menu": "./dist/menu.js",
+		"./menubar": "./dist/menubar.js",
+		"./popover": "./dist/popover.js",
+		"./portal": "./dist/portal.js",
+		"./radio": "./dist/radio.js",
+		"./role": "./dist/role.js",
+		"./select": "./dist/select.js",
+		"./separator": "./dist/separator.js",
+		"./store": "./dist/store.js",
+		"./tab": "./dist/tab.js",
+		"./toolbar": "./dist/toolbar.js",
+		"./tooltip": "./dist/tooltip.js",
+		"./visually-hidden": "./dist/visually-hidden.js",
+		"./package.json": "./package.json"
+	}
+}

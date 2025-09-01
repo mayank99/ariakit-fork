@@ -1,0 +1,46 @@
+import { useMergeRefs } from "./hooks-BNp9qiVx.js";
+import { createElement, createHook, forwardRef } from "./system-BBb67kU9.js";
+import { usePopoverProviderContext } from "./popover-context-BN0yoLp_.js";
+
+//#region packages/ariakit-react-core/src/popover/popover-anchor.tsx
+const TagName = "div";
+/**
+* Returns props to create a `PopoverAnchor` component.
+* @see https://ariakit.org/components/popover
+* @example
+* ```jsx
+* const store = usePopoverStore();
+* const props = usePopoverAnchor({ store });
+* <Role {...props}>Anchor</Role>
+* <Popover store={store}>Popover</Popover>
+* ```
+*/
+const usePopoverAnchor = createHook(function usePopoverAnchor$1({ store,...props }) {
+	const context = usePopoverProviderContext();
+	store = store || context;
+	props = {
+		...props,
+		ref: useMergeRefs(store?.setAnchorElement, props.ref)
+	};
+	return props;
+});
+/**
+* Renders an element that acts as the anchor for the popover. The
+* [`Popover`](https://ariakit.org/reference/popover) component will be
+* positioned in relation to this element.
+* @see https://ariakit.org/components/popover
+* @example
+* ```jsx {2}
+* <PopoverProvider>
+*   <PopoverAnchor>Anchor</PopoverAnchor>
+*   <Popover>Popover</Popover>
+* </PopoverProvider>
+* ```
+*/
+const PopoverAnchor = forwardRef(function PopoverAnchor$1(props) {
+	const htmlProps = usePopoverAnchor(props);
+	return createElement(TagName, htmlProps);
+});
+
+//#endregion
+export { PopoverAnchor, usePopoverAnchor };
