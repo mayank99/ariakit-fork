@@ -12,13 +12,7 @@ import type {
   SetState,
 } from "@ariakit/core/utils/types";
 import * as React from "react";
-// import { useSyncExternalStore } from "use-sync-external-store/shim/index.js";
-// This doesn't work in ESM, because use-sync-external-store only exposes CJS.
-// The following is a workaround until ESM is supported.
-import useSyncExternalStoreExports from "use-sync-external-store/shim/index.js";
 import { useEvent, useLiveRef, useSafeLayoutEffect } from "./hooks.ts";
-
-const { useSyncExternalStore } = useSyncExternalStoreExports;
 
 export interface UseState<S> {
   /**
@@ -142,7 +136,7 @@ export function useStoreState(
     return state[key];
   };
 
-  return useSyncExternalStore(storeSubscribe, getSnapshot, getSnapshot);
+  return React.useSyncExternalStore(storeSubscribe, getSnapshot, getSnapshot);
 }
 
 type StoreStateObject<
@@ -229,7 +223,7 @@ export function useStoreStateObject(
     return objRef.current;
   };
 
-  return useSyncExternalStore(storeSubscribe, getSnapshot, getSnapshot);
+  return React.useSyncExternalStore(storeSubscribe, getSnapshot, getSnapshot);
 }
 
 /**
