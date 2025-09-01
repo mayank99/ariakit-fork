@@ -336,7 +336,10 @@ export const useFocusable = createHook<TagName, FocusableOptions>(
       currentTarget?: HTMLType,
     ) => {
       if (currentTarget) {
-        event.currentTarget = currentTarget;
+        Object.defineProperty(event, "currentTarget", {
+          writable: false,
+          value: currentTarget,
+        });
       }
       if (!focusable) return;
       const element = event.currentTarget;

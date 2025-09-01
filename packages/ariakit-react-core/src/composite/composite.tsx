@@ -79,7 +79,6 @@ function useKeyboardEventProxy(
     const state = store.getState();
     const activeElement = getEnabledItem(store, state.activeId)?.element;
     if (!activeElement) return;
-    const { view, ...eventInit } = event;
     const previousElement = previousElementRef?.current;
     // If the active item element is not the previous element, this means that
     // it hasn't been focused (for example, when using composite hover). So we
@@ -87,7 +86,13 @@ function useKeyboardEventProxy(
     if (activeElement !== previousElement) {
       activeElement.focus();
     }
-    if (!fireKeyboardEvent(activeElement, event.type, eventInit)) {
+    if (
+      !fireKeyboardEvent(
+        activeElement,
+        event.type,
+        event as Omit<React.KeyboardEvent, "view">,
+      )
+    ) {
       event.preventDefault();
     }
     // The event will be triggered on the composite item and then propagated up

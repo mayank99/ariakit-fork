@@ -96,10 +96,13 @@ export const useCommand = createHook<TagName, CommandOptions>(
         if (isEnter) {
           if (!nativeClick) {
             event.preventDefault();
-            const { view, ...eventInit } = event;
             // Fire a click event instead of calling element.click() directly so
             // we can pass along the modifier state.
-            const click = () => fireClickEvent(element, eventInit);
+            const click = () =>
+              fireClickEvent(
+                element,
+                event as Omit<React.KeyboardEvent, "view">,
+              );
             // If this element is a link with target="_blank", Firefox will
             // block the "popup" if the click event is dispatched synchronously
             // or in a microtask. Queueing the event asynchronously fixes that.
@@ -137,8 +140,9 @@ export const useCommand = createHook<TagName, CommandOptions>(
           event.preventDefault();
           setActive(false);
           const element = event.currentTarget;
-          const { view, ...eventInit } = event;
-          queueMicrotask(() => fireClickEvent(element, eventInit));
+          queueMicrotask(() =>
+            fireClickEvent(element, event as Omit<React.KeyboardEvent, "view">),
+          );
         }
       }
     });

@@ -89,8 +89,8 @@ export function fireEvent(
 export function fireBlurEvent(element: Element, eventInit?: FocusEventInit) {
   const event = new FocusEvent("blur", eventInit);
   const defaultAllowed = element.dispatchEvent(event);
-  const bubbleInit = { ...eventInit, bubbles: true };
-  element.dispatchEvent(new FocusEvent("focusout", bubbleInit));
+  Object.defineProperty(eventInit, "bubbles", { writable: false, value: true });
+  element.dispatchEvent(new FocusEvent("focusout", eventInit));
   return defaultAllowed;
 }
 
@@ -102,8 +102,8 @@ export function fireBlurEvent(element: Element, eventInit?: FocusEventInit) {
 export function fireFocusEvent(element: Element, eventInit?: FocusEventInit) {
   const event = new FocusEvent("focus", eventInit);
   const defaultAllowed = element.dispatchEvent(event);
-  const bubbleInit = { ...eventInit, bubbles: true };
-  element.dispatchEvent(new FocusEvent("focusin", bubbleInit));
+  Object.defineProperty(eventInit, "bubbles", { writable: false, value: true });
+  element.dispatchEvent(new FocusEvent("focusin", eventInit));
   return defaultAllowed;
 }
 

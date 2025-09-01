@@ -29,7 +29,6 @@ import type { WrapElement } from "./types.ts";
 const _React = { ...React };
 const useReactId = _React.useId;
 const useReactDeferredValue = _React.useDeferredValue;
-const useReactInsertionEffect = _React.useInsertionEffect;
 
 /**
  * `React.useLayoutEffect` that fallbacks to `React.useEffect` on server side.
@@ -102,15 +101,10 @@ export function usePreviousValue<T>(value: T) {
  */
 export function useEvent<T extends AnyFunction>(callback?: T) {
   const ref = useRef<AnyFunction | undefined>(() => {
-    throw new Error("Cannot call an event handler while rendering.");
+    console.error("Cannot call an event handler while rendering.");
   });
-  if (useReactInsertionEffect) {
-    useReactInsertionEffect(() => {
-      ref.current = callback;
-    });
-  } else {
-    ref.current = callback;
-  }
+  // TODO: Wrap this in useEffect
+  ref.current = callback;
   return useCallback<AnyFunction>((...args) => ref.current?.(...args), []) as T;
 }
 
