@@ -1,0 +1,77 @@
+{
+  "name": "@ariakit/react",
+  "version": "0.4.18",
+  "description": "Toolkit for building accessible web apps with React",
+  "sideEffects": false,
+  "license": "MIT",
+  "homepage": "https://ariakit.org",
+  "type": "module",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ariakit/ariakit.git",
+    "directory": "packages/ariakit-react"
+  },
+  "author": {
+    "name": "Diego Haz",
+    "email": "hazdiego@gmail.com",
+    "url": "https://github.com/diegohaz"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ariakit"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "build": "node ../../scripts/build/build.js",
+    "clean": "node ../../scripts/build/clean.js"
+  },
+  "keywords": [
+    "ariakit",
+    "react",
+    "a11y",
+    "ui",
+    "toolkit",
+    "components"
+  ],
+  "dependencies": {
+    "@ariakit/react-core": "0.4.18"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./button": "./src/button.ts",
+    "./checkbox": "./src/checkbox.ts",
+    "./collection": "./src/collection.ts",
+    "./combobox": "./src/combobox.ts",
+    "./command": "./src/command.ts",
+    "./composite": "./src/composite.ts",
+    "./dialog": "./src/dialog.ts",
+    "./disclosure": "./src/disclosure.ts",
+    "./focus-trap": "./src/focus-trap.ts",
+    "./focusable": "./src/focusable.ts",
+    "./form": "./src/form.ts",
+    "./group": "./src/group.ts",
+    "./heading": "./src/heading.ts",
+    "./hovercard": "./src/hovercard.ts",
+    "./menu": "./src/menu.ts",
+    "./menubar": "./src/menubar.ts",
+    "./popover": "./src/popover.ts",
+    "./portal": "./src/portal.ts",
+    "./radio": "./src/radio.ts",
+    "./role": "./src/role.ts",
+    "./select": "./src/select.ts",
+    "./separator": "./src/separator.ts",
+    "./store": "./src/store.ts",
+    "./tab": "./src/tab.ts",
+    "./toolbar": "./src/toolbar.ts",
+    "./tooltip": "./src/tooltip.ts",
+    "./visually-hidden": "./src/visually-hidden.ts",
+    "./package.json": "./package.json"
+  }
+}

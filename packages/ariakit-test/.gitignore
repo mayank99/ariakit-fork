@@ -1,0 +1,19 @@
+# Automatically generated
+/blur
+/cjs
+/click
+/dispatch
+/esm
+/focus
+/hover
+/mouse-down
+/mouse-up
+/playwright
+/press
+/query
+/react
+/select
+/sleep
+/tap
+/type
+/wait-for
