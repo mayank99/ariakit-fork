@@ -168,7 +168,7 @@ const useHovercard = createHook(function useHovercard$1({ store, modal = false, 
 	const context = useHovercardProviderContext();
 	store = store || context;
 	invariant(store, process.env.NODE_ENV !== "production" && "Hovercard must receive a `store` prop or be wrapped in a HovercardProvider component.");
-	const ref = useRef(null);
+	const element = store.useState("contentElement");
 	const [nestedHovercards, setNestedHovercards] = useState([]);
 	const hideTimeoutRef = useRef(0);
 	const enterPointRef = useRef(null);
@@ -184,7 +184,6 @@ const useHovercard = createHook(function useHovercard$1({ store, modal = false, 
 		if (!domReady) return;
 		if (!mounted) return;
 		if (!mayHideOnHoverOutside && !mayDisablePointerEvents) return;
-		const element = ref.current;
 		if (!element) return;
 		const onMouseMove = (event) => {
 			if (!store) return;
@@ -227,14 +226,14 @@ const useHovercard = createHook(function useHovercard$1({ store, modal = false, 
 		mayDisablePointerEvents,
 		nestedHovercards,
 		disablePointerEventsProp,
-		hideOnHoverOutsideProp
+		hideOnHoverOutsideProp,
+		element
 	]);
 	useEffect(() => {
 		if (!domReady) return;
 		if (!mounted) return;
 		if (!mayDisablePointerEvents) return;
 		const disableEvent = (event) => {
-			const element = ref.current;
 			if (!element) return;
 			const enterPoint = enterPointRef.current;
 			if (!enterPoint) return;
@@ -250,7 +249,8 @@ const useHovercard = createHook(function useHovercard$1({ store, modal = false, 
 		domReady,
 		mounted,
 		mayDisablePointerEvents,
-		disablePointerEventsProp
+		disablePointerEventsProp,
+		element
 	]);
 	useEffect(() => {
 		if (!domReady) return;
@@ -276,34 +276,30 @@ const useHovercard = createHook(function useHovercard$1({ store, modal = false, 
 		if (!portal) return;
 		if (!mounted) return;
 		if (!domReady) return;
-		const element = ref.current;
 		if (!element) return;
 		return registerOnParent?.(element);
 	}, [
 		modal,
 		portal,
 		mounted,
-		domReady
+		domReady,
+		element
 	]);
-	const registerNestedHovercard = useCallback((element) => {
-		setNestedHovercards((prevElements) => [...prevElements, element]);
-		const parentUnregister = registerOnParent?.(element);
+	const registerNestedHovercard = useCallback((element$1) => {
+		setNestedHovercards((prevElements) => [...prevElements, element$1]);
+		const parentUnregister = registerOnParent?.(element$1);
 		return () => {
-			setNestedHovercards((prevElements) => prevElements.filter((item) => item !== element));
+			setNestedHovercards((prevElements) => prevElements.filter((item) => item !== element$1));
 			parentUnregister?.();
 		};
 	}, [registerOnParent]);
-	props = useWrapElement(props, (element) => /* @__PURE__ */ jsx(HovercardScopedContextProvider, {
+	props = useWrapElement(props, (element$1) => /* @__PURE__ */ jsx(HovercardScopedContextProvider, {
 		value: store,
 		children: /* @__PURE__ */ jsx(NestedHovercardContext.Provider, {
 			value: registerNestedHovercard,
-			children: element
+			children: element$1
 		})
 	}), [store, registerNestedHovercard]);
-	props = {
-		...props,
-		ref: useMergeRefs(ref, props.ref)
-	};
 	props = useAutoFocusOnHide({
 		store,
 		...props

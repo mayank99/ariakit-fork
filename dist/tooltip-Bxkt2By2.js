@@ -2,7 +2,7 @@ import { chain, contains, defaultValue, invariant, isFalsyBooleanCallback, useEv
 import { createElement, createHook, createStoreContext, forwardRef } from "./system-BBb67kU9.js";
 import { createStore, sync, useStore, useStoreProps } from "./store-Ddr50htY.js";
 import { createDialogComponent } from "./dialog-DsMHKXPt.js";
-import { HovercardContextProvider, HovercardScopedContextProvider, createHovercardStore, useHovercard, useHovercardAnchor, useHovercardStoreProps } from "./hovercard-store-9D3fw7RZ.js";
+import { HovercardContextProvider, HovercardScopedContextProvider, createHovercardStore, useHovercard, useHovercardAnchor, useHovercardStoreProps } from "./hovercard-store-DPGUctEu.js";
 import { usePopoverArrow } from "./popover-arrow-C8H6zRta.js";
 import { useEffect, useRef } from "react";
 import { jsx } from "react/jsx-runtime";

@@ -1,5 +1,5 @@
 import { createElement, createHook, forwardRef } from "./system-BBb67kU9.js";
-import { useHovercardScopedContext } from "./hovercard-store-9D3fw7RZ.js";
+import { useHovercardScopedContext } from "./hovercard-store-DPGUctEu.js";
 import { usePopoverDescription } from "./popover-description-8R006P2Q.js";
 import { usePopoverDismiss, usePopoverHeading } from "./popover-heading-D5WoNzD4.js";
 
