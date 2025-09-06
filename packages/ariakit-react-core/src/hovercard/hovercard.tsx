@@ -25,7 +25,6 @@ import {
   useEvent,
   useIsMouseMoving,
   useLiveRef,
-  useMergeRefs,
   usePortalRef,
   useSafeLayoutEffect,
   useWrapElement,
@@ -145,7 +144,10 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
         "Hovercard must receive a `store` prop or be wrapped in a HovercardProvider component.",
     );
 
-    const ref = useRef<HTMLType>(null);
+    // We need to get the hovercard element from the store instead of using a ref
+    // so that we always have the right element inside Effects.
+    const element = store.useState("contentElement");
+
     const [nestedHovercards, setNestedHovercards] = useState<HTMLElement[]>([]);
     const hideTimeoutRef = useRef(0);
     const enterPointRef = useRef<Point | null>(null);
@@ -169,7 +171,6 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
       if (!domReady) return;
       if (!mounted) return;
       if (!mayHideOnHoverOutside && !mayDisablePointerEvents) return;
-      const element = ref.current;
       if (!element) return;
       const onMouseMove = (event: MouseEvent) => {
         if (!store) return;
@@ -233,6 +234,7 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
       nestedHovercards,
       disablePointerEventsProp,
       hideOnHoverOutsideProp,
+      element,
     ]);
 
     // Disable mouse events while the mouse is moving toward the hovercard. This
@@ -243,7 +245,6 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
       if (!mounted) return;
       if (!mayDisablePointerEvents) return;
       const disableEvent = (event: MouseEvent) => {
-        const element = ref.current;
         if (!element) return;
         const enterPoint = enterPointRef.current;
         if (!enterPoint) return;
@@ -261,7 +262,7 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
         addGlobalEventListener("mouseout", disableEvent, true),
         addGlobalEventListener("mouseleave", disableEvent, true),
       );
-    }, [domReady, mounted, mayDisablePointerEvents, disablePointerEventsProp]);
+    }, [domReady, mounted, mayDisablePointerEvents, disablePointerEventsProp, element]);
 
     // The autoFocusOnShow state will be set to true when the hovercard
     // disclosure element is clicked. We have to reset it to false when the
@@ -298,10 +299,9 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
       if (!portal) return;
       if (!mounted) return;
       if (!domReady) return;
-      const element = ref.current;
       if (!element) return;
       return registerOnParent?.(element);
-    }, [modal, portal, mounted, domReady]);
+    }, [modal, portal, mounted, domReady, element]);
 
     const registerNestedHovercard = useCallback(
       (element: any) => {
@@ -328,11 +328,6 @@ export const useHovercard = createHook<TagName, HovercardOptions>(
       ),
       [store, registerNestedHovercard],
     );
-
-    props = {
-      ...props,
-      ref: useMergeRefs(ref, props.ref),
-    };
 
     props = useAutoFocusOnHide({ store, ...props });
 
