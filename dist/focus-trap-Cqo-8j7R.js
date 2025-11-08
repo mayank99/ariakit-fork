@@ -1,0 +1,73 @@
+import { L as removeUndefinedValues, _ as useWrapElement, l as useMergeRefs } from "./hooks-H6OmsigH.js";
+import { i as getAllTabbableIn } from "./focus-BzfNYadt.js";
+import { i as forwardRef, n as createHook, t as createElement } from "./system-CMX9uFDP.js";
+import { t as FocusTrap } from "./focus-trap-B0b8Zm2m.js";
+import { useRef } from "react";
+import { Fragment as Fragment$1, jsx, jsxs } from "react/jsx-runtime";
+
+//#region packages/ariakit-react-core/src/focus-trap/focus-trap-region.tsx
+const TagName = "div";
+/**
+* Returns props to create a `FocusTrapRegion` component.
+* @see https://ariakit.org/components/focus-trap-region
+* @example
+* ```jsx
+* const props = useFocusTrapRegion();
+* <Role {...props} />
+* ```
+*/
+const useFocusTrapRegion = createHook(function useFocusTrapRegion$1({ enabled = false,...props }) {
+	const ref = useRef(null);
+	props = useWrapElement(props, (element) => {
+		const renderFocusTrap = () => {
+			if (!enabled) return null;
+			return /* @__PURE__ */ jsx(FocusTrap, { onFocus: (event) => {
+				const container = ref.current;
+				if (!container) return;
+				const tabbables = getAllTabbableIn(container, true);
+				const first = tabbables[0];
+				const last = tabbables[tabbables.length - 1];
+				if (!tabbables.length) {
+					container.focus();
+					return;
+				}
+				if (event.relatedTarget === first) {
+					last?.focus();
+				} else {
+					first?.focus();
+				}
+			} });
+		};
+		return /* @__PURE__ */ jsxs(Fragment$1, { children: [
+			renderFocusTrap(),
+			element,
+			renderFocusTrap()
+		] });
+	}, [enabled]);
+	props = {
+		...props,
+		ref: useMergeRefs(ref, props.ref)
+	};
+	return removeUndefinedValues(props);
+});
+/**
+* Renders a wrapper element that traps the focus inside it when the
+* [`enabled`](https://ariakit.org/reference/focus-trap-region#enabled) prop is
+* `true`.
+* @see https://ariakit.org/components/focus-trap
+* @example
+* ```jsx
+* <FocusTrapRegion>
+*  <Button>click me</Button>
+*  <Button>trap focus</Button>
+*  <Button disabled>disabled Button</Button>
+* </FocusTrapRegion>
+* ```
+*/
+const FocusTrapRegion = forwardRef(function FocusTrapRegion$1(props) {
+	const htmlProps = useFocusTrapRegion(props);
+	return createElement(TagName, htmlProps);
+});
+
+//#endregion
+export { FocusTrapRegion as t };

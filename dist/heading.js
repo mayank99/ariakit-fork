@@ -1,7 +1,7 @@
-import "./hooks-BNp9qiVx.js";
-import "./system-BBb67kU9.js";
-import { HeadingLevel } from "./heading-level-lefJvr_C.js";
-import { Heading } from "./heading-DFT70ODV.js";
+import "./hooks-H6OmsigH.js";
+import "./system-CMX9uFDP.js";
+import { t as HeadingLevel } from "./heading-level-DcfYVbfS.js";
+import { t as Heading } from "./heading-CyP9oyhQ.js";
 import "./heading-DVSnjlcq.js";
 
 export { Heading, HeadingLevel };
